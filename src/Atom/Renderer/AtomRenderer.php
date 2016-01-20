@@ -28,28 +28,28 @@ class AtomRenderer implements RendererInterface
 
     protected function renderId(AtomFeed $feed, DomDocument $dom, DOMElement $root)
     {
-        $idElement = $feed->getId();
-        $id        = $dom->createElement('id');
+        $idAttribute = $feed->getAttributes()->getId();
+        $id          = $dom->createElement('id');
 
-        if (null !== $idElement->getType()) {
-            $id->setAttribute('type', $idElement->getType());
+        if (null !== $idAttribute->getType()) {
+            $id->setAttribute('type', $idAttribute->getType());
         }
 
-        $text = $dom->createTextNode($idElement);
+        $text = $dom->createTextNode($idAttribute);
         $id->appendChild($text);
         $root->appendChild($id);
     }
 
     protected function renderTitle(AtomFeed $feed, DomDocument $dom, DOMElement $root)
     {
-        $titleAttribute = $feed->getTitle();
+        $titleAttribute = $feed->getAttributes()->getTitle();
         $title          = $dom->createElement('title');
 
         if (null !== $titleAttribute->getType()) {
             $title->setAttribute('type', $titleAttribute->getType());
         }
 
-        $text = $dom->createTextNode($feed->getTitle());
+        $text = $dom->createTextNode($titleAttribute);
         $title->appendChild($text);
         $root->appendChild($title);
     }
@@ -57,7 +57,7 @@ class AtomRenderer implements RendererInterface
     protected function renderUpdated(AtomFeed $feed, DomDocument $dom, DOMElement $root)
     {
         $updated = $dom->createElement('updated');
-        $text    = $dom->createTextNode($feed->getUpdated());
+        $text    = $dom->createTextNode($feed->getAttributes()->getUpdated());
         $updated->appendChild($text);
         $root->appendChild($updated);
     }

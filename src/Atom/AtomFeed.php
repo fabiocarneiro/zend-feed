@@ -7,12 +7,12 @@ use Zend\Feed\Exception\MissingAttributeException;
 class AtomFeed
 {
     /**
-     * @var CommonAttributes
+     * @var AtomCommonAttributes
      */
     private $commonAttributes;
 
     /**
-     * @var array
+     * @var AtomAttributes
      */
     private $attributes;
 
@@ -22,81 +22,36 @@ class AtomFeed
     private $entries;
 
     public function __construct(
-        CommonAttributes $commonAttributes,
-        array $attributes,
+        AtomCommonAttributes $commonAttributes,
+        AtomAttributes $attributes,
         array $entries
     ) {
-        if (0 === count(array_filter($attributes, [$this, 'isIdAttribute']))) {
-            throw new MissingAttributeException('Attribute Id is required');
-        }
-
-        if (0 === count(array_filter($attributes, [$this, 'isTitleAttribute']))) {
-            throw new MissingAttributeException('Attribute Title is required');
-        }
-
-        if (0 === count(array_filter($attributes, [$this, 'isUpdatedAttribute']))) {
-            throw new MissingAttributeException('Attribute Updated is required');
-        }
-
         $this->commonAttributes = $commonAttributes;
         $this->attributes       = $attributes;
         $this->entries          = $entries;
     }
 
     /**
-     * @param object $attribute
-     * @return bool
+     * @return AtomCommonAttributes
      */
-    private function isIdAttribute($attribute)
+    public function getCommonAttributes()
     {
-        return $attribute instanceof AtomIdAttribute;
+        return $this->commonAttributes;
     }
 
     /**
-     * @param object $attribute
-     * @return bool
+     * @return AtomAttributes
      */
-    private function isTitleAttribute($attribute)
+    public function getAttributes()
     {
-        return $attribute instanceof AtomTitleAttribute;
+        return $this->attributes;
     }
 
     /**
-     * @param object $attribute
-     * @return bool
+     * @return array
      */
-    private function isUpdatedAttribute($attribute)
+    public function getEntries()
     {
-        return $attribute instanceof AtomUpdatedAttribute;
-    }
-
-    /**
-     * @return AtomIdAttribute
-     */
-    public function getId()
-    {
-        $filtered = array_filter($this->attributes, [$this, 'isIdAttribute']);
-
-        return array_shift($filtered);
-    }
-
-    /**
-     * @return AtomTitleAttribute
-     */
-    public function getTitle()
-    {
-        $filtered = array_filter($this->attributes, [$this, 'isTitleAttribute']);
-
-        return array_shift($filtered);
-    }
-
-    /**
-     * @return AtomUpdatedAttribute
-     */
-    public function getUpdated()
-    {
-        $filtered = array_filter($this->attributes, [$this, 'isUpdatedAttribute']);
-
-        return array_shift($filtered);
+        return $this->entries;
     }
 }

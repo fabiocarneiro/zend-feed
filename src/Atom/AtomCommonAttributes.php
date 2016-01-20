@@ -2,7 +2,7 @@
 
 namespace Zend\Feed\Atom;
 
-class CommonAttributes
+class AtomCommonAttributes
 {
     private $base;
     private $lang;

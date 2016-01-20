@@ -8,6 +8,7 @@ class AtomTitleAttribute implements TextAttributeInterface
      * @var string
      */
     private $text;
+
     /**
      * @var null
      */
