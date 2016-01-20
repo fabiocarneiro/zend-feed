@@ -24,4 +24,17 @@ class AtomFeedTest extends TestCase
             []
         );
     }
+
+    public function testCanCreateFeedWithCustomAttribute()
+    {
+        new AtomFeed(
+            new AtomCommonAttributes('http://diveintomark.org/', 'en'),
+            new AtomAttributes(
+                new AtomIdAttribute('tag:example.org,2003:3'),
+                new AtomTitleAttribute('dive into mark'),
+                new AtomUpdatedAttribute('2005-07-31T12:29:29Z')
+            ),
+            []
+        );
+    }
 }

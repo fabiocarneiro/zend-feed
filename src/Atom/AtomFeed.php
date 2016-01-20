@@ -2,8 +2,6 @@
 
 namespace Zend\Feed\Atom;
 
-use Zend\Feed\Exception\MissingAttributeException;
-
 class AtomFeed
 {
     /**
